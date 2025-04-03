@@ -11,12 +11,12 @@ bot = commands.Bot(command_prefix='$', intents=intents)
 @bot.event
 async def on_ready():
     print(f'We have logged in as {bot.user}')
-@bot.command()
 
+@bot.command()
 async def hello(ctx):
     await ctx.send(f'Hola, soy un bot {bot.user}!')
-@bot.command()
 
+@bot.command("roll")
 async def roll(ctx, dice: str):
     """Rolls a dice in NdN format."""
     try:
@@ -29,15 +29,12 @@ async def roll(ctx, dice: str):
     await ctx.send(result)
 
 
-@bot.command(description='For when you wanna settle the score some other way')
-
+@bot.command()
 async def joined(ctx, member: discord.Member):
     """Says when a member joined."""
     await ctx.send(f'{member.name} joined {discord.utils.format_dt(member.joined_at)}')
 
-
-@bot.group()
-
+@bot.command("heh")
 async def heh(ctx, count_heh = 5):
     await ctx.send("he" * count_heh)
 
@@ -46,12 +43,15 @@ def get_duck_image_url():
     res = requests.get(url)
     data = res.json()
     return data['url']
-@bot.command('duck')
 
+@bot.command('duck')
 async def duck(ctx):
     '''Una vez que llamamos al comando duck, 
     el programa llama a la función get_duck_image_url'''
     image_url = get_duck_image_url()
     await ctx.send(image_url)
-   
+
+@bot.command("help")
+async def help(ctx):
+    await ctx.send("$roll: Rolls a dice. /n $duck: shows a image of an animal (that is not a duck)")   
 bot.run("token")
