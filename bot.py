@@ -51,7 +51,6 @@ async def duck(ctx):
     image_url = get_duck_image_url()
     await ctx.send(image_url)
 
-@bot.command("help")
 async def help(ctx):
     await ctx.send("$roll: Rolls a dice. /n $duck: shows a image of an animal (that is not a duck)")   
 bot.run("token")
