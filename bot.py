@@ -14,6 +14,7 @@ async def on_ready():
 
 @bot.command()
 async def hello(ctx):
+    """Prints a hello message."""
     await ctx.send(f'Hola, soy un bot {bot.user}!')
 
 @bot.command("roll")
@@ -36,21 +37,23 @@ async def joined(ctx, member: discord.Member):
 
 @bot.command("heh")
 async def heh(ctx, count_heh = 5):
+    """Prints the syllable 'he' multiplied by the desired amount of times."""
     await ctx.send("he" * count_heh)
 
 def get_duck_image_url():    
-    url = 'https://randomfox.ca/floof/'
+    url = 'https://randomfox.ca/floof'
     res = requests.get(url)
     data = res.json()
-    return data['url']
+    return data['image']
 
 @bot.command('duck')
 async def duck(ctx):
-    '''Una vez que llamamos al comando duck, 
-    el programa llama a la función get_duck_image_url'''
+    """Prints an url to a fox image"""
     image_url = get_duck_image_url()
     await ctx.send(image_url)
 
-async def help(ctx):
-    await ctx.send("$roll: Rolls a dice. /n $duck: shows a image of an animal (that is not a duck)")   
+@bot.command("info")
+async def info(ctx):
+    """Shows a bit of info regarding the bot (not the same as help command)"""
+    await ctx.send("Sample Discord bot running in Python 3.11, created by Legofan123e.")
 bot.run("token")
